@@ -17,10 +17,11 @@ const to = (i: number) => ({
   rot: 0,
   delay: i * 100,
 });
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const from = (_i: number) => ({ x: 0, rot: 0, scale: 1.5, y: -1000 });
 
 export const Deck = () => {
-  const [allMovies, setAllMovies] = useState<Movie[]>([]);
+  const [, setAllMovies] = useState<Movie[]>([]);
   const [currentMovies, setCurrentMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -73,6 +74,8 @@ export const Deck = () => {
           await axiosApi.post(`/movies/${movieId}/interact`, { type });
           toast.info(xDir > 0 ? "Movie added to favorites" : "Movie rejected");
         } catch (error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           if (error.response?.status === 409) {
             toast.info(
               xDir > 0
@@ -122,7 +125,7 @@ export const Deck = () => {
   };
 
   const handleLike = async (
-    e: React.ChangeEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     i: number,
     movieId: string
   ) => {
@@ -135,6 +138,8 @@ export const Deck = () => {
         autoClose: 1000,
       });
     } catch (error: unknown) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       if (error.response?.status === 409) {
         toast.info("This movie is already in your favorites!");
         handleButtonAction(i, 1);
@@ -142,7 +147,7 @@ export const Deck = () => {
     }
   };
   const handleReject = async (
-    e: React.ChangeEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     i: number,
     movieId: string
   ) => {
@@ -160,7 +165,11 @@ export const Deck = () => {
   };
 
   const handlers = useSwipeable({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     onSwipedLeft: handleReject,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     onSwipedRight: handleLike,
     trackMouse: true,
   });
@@ -175,7 +184,8 @@ export const Deck = () => {
   return (
     <>
       <div className="flex fill center" {...handlers}>
-        {props.map(({ x, y, rot, scale }, i) => (
+        {/* eslint-disable-next-line react/prop-types */}
+        {props.map(({ x, y }, i) => (
           <animated.div className={styles.deck} key={i} style={{ x, y }}>
             <animated.div
               {...bind(i)}
@@ -188,8 +198,12 @@ export const Deck = () => {
                 rating={currentMovies[i].rating}
               />
               <DeckButtons
-                handleReject={(e) => handleReject(e, i, currentMovies[i].id)}
-                handleLike={(e) => handleLike(e, i, currentMovies[i].id)}
+                handleReject={(
+                  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => handleReject(e, i, currentMovies[i].id)}
+                handleLike={(
+                  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => handleLike(e, i, currentMovies[i].id)}
                 id={currentMovies[i].id}
               />
             </animated.div>

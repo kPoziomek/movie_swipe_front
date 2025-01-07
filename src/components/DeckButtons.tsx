@@ -1,8 +1,8 @@
 import { CircleEllipsis, Heart, X } from "lucide-react";
 import { useNavigate } from "react-router";
 type DeckButtonsProps = {
-  handleReject: () => void;
-  handleLike: () => void;
+  handleReject: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleLike: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   id: string;
 };
 
@@ -11,6 +11,7 @@ const DeckButtons = ({ handleReject, handleLike, id }: DeckButtonsProps) => {
   return (
     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-8">
       <button
+        type="button"
         onClick={handleReject}
         className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg"
       >

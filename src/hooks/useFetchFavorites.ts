@@ -7,7 +7,7 @@ export const useFetchFavorites = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   useEffect(() => {
     const fetchFavorites = async () => {
