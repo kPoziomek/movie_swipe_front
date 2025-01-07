@@ -1,0 +1,44 @@
+.container {
+    background: lightblue;
+}
+
+.deck {
+    position: absolute;
+    top: 10%;
+    width: 300px;
+    height: 200px;
+    will-change: transform;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+}
+
+.deck > div {
+    touch-action: none;
+    background-color: white;
+    background-size: auto 85%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 75vh;
+    max-height: 500px;
+    will-change: transform;
+    border-radius: 10px;
+    box-shadow: 0 1px 40px -100px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .deck > div {
+    max-width: 280px;
+    height: 80vh;
+    max-height: 530px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .deck > div {
+      height: 85vh;
+      max-height: 570px;
+  }
+}
