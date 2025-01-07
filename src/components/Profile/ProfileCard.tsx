@@ -1,14 +1,15 @@
 import { Heart, Star, ThumbsUp } from "lucide-react";
 import { ProfileInfo, ProfileRow } from "./index.ts";
 import GoBack from "../GoBack.tsx";
-import { useUser } from "../../hooks/useUser.ts";
-import CardLoader from "../CardLoader.tsx";
+import { User } from "../../types.ts";
 
-export const ProfileCard = () => {
-  const { user, loading } = useUser();
+interface ProfileCardProps {
+  user: User;
+}
 
-  if (loading) {
-    return <CardLoader />;
+export const ProfileCard = ({ user }: ProfileCardProps) => {
+  if (!user) {
+    return <div>No user data available</div>;
   }
 
   return (
